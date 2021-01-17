@@ -13,6 +13,8 @@ export default class Game extends Phaser.Scene
         this.load.image('background', 'assets/bg_layer1.png')
         // platform
         this.load.image('platform', 'assets/ground_grass.png')
+        // rabbit
+        this.load.image('bunny-stand', 'assets/bunny1_stand.png')
     }
     
     create()
@@ -33,6 +35,7 @@ export default class Game extends Phaser.Scene
             const body = pf.body
             body.updateFromGameObject()
         }
-        
+        // rabbit
+        this.physics.add.sprite(240, 320, 'bunny-stand').setScale(0.5)
     }
 }
