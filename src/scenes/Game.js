@@ -36,6 +36,9 @@ export default class Game extends Phaser.Scene
             body.updateFromGameObject()
         }
         // rabbit
-        this.physics.add.sprite(240, 320, 'bunny-stand').setScale(0.5)
+        const player = this.physics.add.sprite(240, 320, 'bunny-stand').setScale(0.5)
+        
+        // collision
+        this.physics.add.collider(pfs, player)
     }
 }
