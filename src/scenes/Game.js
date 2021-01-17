@@ -23,6 +23,7 @@ export default class Game extends Phaser.Scene
         this.load.image('background', 'assets/bg_layer1.png')
         this.load.image('platform', 'assets/ground_grass.png')
         this.load.image('bunny-stand', 'assets/bunny1_stand.png')
+        this.load.image('bunny-jump', 'assets/bunny1_jump.png')
         this.load.image('carrot', 'assets/carrot.png')
         //end
         // input
@@ -100,6 +101,15 @@ export default class Game extends Phaser.Scene
         if (isDown)
             {
                 this.player.setVelocityY(-300)
+                
+                this.player.setTexture('bunny-jump')
+            }
+        // end
+        // dropping sprite start
+        const vy = this.player.body.velocity.y
+        if (vy > 0 && this.player.texture.key !== 'bunny-stand')
+            {
+                this.player.setTexture('bunny-stand')
             }
         // end
         // infi platforms start
