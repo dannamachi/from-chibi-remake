@@ -51,9 +51,8 @@ export default class Game extends Phaser.Scene
         
         // camera s
         this.cameras.main.startFollow(this.player)
-        this.cameras.main.setDeadzone(this.scale.width* 1.5)
+        this.cameras.main.setDeadzone(this.scale.width * 1.5)
         // e
-        
         // collision s
         this.physics.add.collider(this.platforms, this.player)
         this.player.body.checkCollision.up = false
@@ -97,5 +96,22 @@ export default class Game extends Phaser.Scene
                 this.player.setVelocityX(0)
             }
         // e
+        // wrap
+        this.horizontalWrap(this.player)
+    }
+    
+    // add func
+    horizontalWrap(sprite)
+    {
+        const halfW = sprite.displayWidth * 0.5
+        const gameW = this.scale.width
+        if (sprite.x < -halfW)
+            {
+                sprite.x = gameW + halfW
+            }
+        else if (sprite.x > gameW + halfW)
+            {
+                sprite.x = -halfW
+            }
     }
 }
