@@ -3,12 +3,14 @@ import Carrot from '../game/Carrot.js'
 
 export default class Game extends Phaser.Scene
 {
-    // vars s
+    // vars start
     player
     platforms
     cursors
     carrots
-    // e
+    carrotNo = 0
+    cText
+    // end
     
     constructor()
     {
@@ -17,12 +19,12 @@ export default class Game extends Phaser.Scene
     
     preload()
     {
-        // assets s
+        // assets start
         this.load.image('background', 'assets/bg_layer1.png')
         this.load.image('platform', 'assets/ground_grass.png')
         this.load.image('bunny-stand', 'assets/bunny1_stand.png')
         this.load.image('carrot', 'assets/carrot.png')
-        //e
+        //end
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
     }
@@ -32,6 +34,7 @@ export default class Game extends Phaser.Scene
         // bg
         this.add.image(240, 320, 'background').setScrollFactor(1, 0)
         
+        // start
         // platforms
         this.platforms = this.physics.add.staticGroup()
         for (let i=0; i<5; ++i)
@@ -53,19 +56,28 @@ export default class Game extends Phaser.Scene
         this.carrots = this.physics.add.group({
             classType: Carrot
         })
+        //end
         
-        // camera s
+        const style = {
+            color: '#000',
+            fontSize: 24
+        }
+        this.cText = this.add.text(240, 10, 'Carrots: 0', style)
+            .setScrollFactor(0)
+            .setOrigin(0.5, 0)
+        
+        // camera start
         this.cameras.main.startFollow(this.player)
         this.cameras.main.setDeadzone(this.scale.width * 1.5)
-        // e
-        // collision s
+        // end
+        // collision start
         this.physics.add.collider(this.platforms, this.player)
         this.physics.add.collider(this.platforms, this.carrots)
         this.player.body.checkCollision.up = false
         this.player.body.checkCollision.left = false
         this.player.body.checkCollision.right = false
-        // e
-        // overlap for c collection s
+        // end
+        // overlap for c collection start
         this.physics.add.overlap(
             this.player,
             this.carrots,
@@ -73,19 +85,19 @@ export default class Game extends Phaser.Scene
             undefined,
             this
         )
-        // e
+        // end
     }
     
     update()
     {
-        // touchdown s
+        // touchdown start
         const isDown = this.player.body.touching.down
         if (isDown)
             {
                 this.player.setVelocityY(-300)
             }
-        // e
-        // infi platforms s
+        // end
+        // infi platforms start
         this.platforms.children.iterate(child => {
             const pf = child
             
@@ -98,8 +110,8 @@ export default class Game extends Phaser.Scene
                     this.addCarrotAbove(pf)
                 }
         })
-        // e
-        // input s
+        // end
+        // input start
         if (this.cursors.left.isDown && !isDown)
             {
                 this.player.setVelocityX(-200)
@@ -112,10 +124,10 @@ export default class Game extends Phaser.Scene
             {
                 this.player.setVelocityX(0)
             }
-        // e
+        // end
         // wrap
         this.horizontalWrap(this.player)
-        // reuse carrot s
+        // reuse carrot start
         const gameH = this.scale.height
         this.carrots.children.iterate(child => {
             const c = child
@@ -125,7 +137,7 @@ export default class Game extends Phaser.Scene
                     this.physics.world.disableBody(c.body)
                 }
         })
-        // e
+        // end
     }
     
     // add func
@@ -163,5 +175,9 @@ export default class Game extends Phaser.Scene
     {
         this.carrots.killAndHide(carrot)
         this.physics.world.disableBody(carrot.body)
+        
+        this.carrotNo++
+        
+        this.cText.text = `Carrots: ${this.carrotNo}`
     }
 }
