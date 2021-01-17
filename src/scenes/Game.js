@@ -115,6 +115,17 @@ export default class Game extends Phaser.Scene
         // e
         // wrap
         this.horizontalWrap(this.player)
+        // reuse carrot s
+        const gameH = this.scale.height
+        this.carrots.children.iterate(child => {
+            const c = child
+            if (c.y > gameH * 2)
+                {
+                    this.carrots.killAndHide(c)
+                    this.physics.world.disableBody(c.body)
+                }
+        })
+        // e
     }
     
     // add func
