@@ -138,6 +138,13 @@ export default class Game extends Phaser.Scene
                 }
         })
         // end
+        // lose check start
+        const bottom = this.findBottomMostPlatform()
+        if (this.player.y > bottom.y + 200)
+            {
+                console.log('game over')
+            }
+        // end
     }
     
     // add func
@@ -179,5 +186,21 @@ export default class Game extends Phaser.Scene
         this.carrotNo++
         
         this.cText.text = `Carrots: ${this.carrotNo}`
+    }
+    findBottomMostPlatform()
+    {
+        const pfs = this.platforms.getChildren()
+        let bottom = pfs[0]
+        
+        for (let i=1; i<pfs.length; ++i)
+            {
+                const pf = pfs[i]
+                if (pf.y < bottom.y)
+                    {
+                        continue
+                    }
+                bottom = pf
+            }
+        return bottom
     }
 }
