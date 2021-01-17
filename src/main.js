@@ -24,4 +24,9 @@
 //this.add.image(400, 300, 'sky');
 //this.add.image(400, 100, 'logo');
 //}
+
+import Phaser from './lib/phaser_export.js';
+
+console.dir(Phaser);
+
 console.log('Hello world!');
