@@ -1,32 +1,24 @@
-//var config = {
-//type: Phaser.AUTO,
-//width: 800,
-//height: 600,
-//scene: {
-//    preload: preload,
-//    create: create
-//}
-//};
-//
-//var game = new Phaser.Game(config);
-//
-//function preload ()
-//{
-//this.load.setBaseURL('https://labs.phaser.io');
-//
-//this.load.image('sky', 'assets/skies/space3.png');
-//this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-//this.load.image('red', 'assets/particles/red.png');
-//}
-//
-//function create ()
-//{
-//this.add.image(400, 300, 'sky');
-//this.add.image(400, 100, 'logo');
-//}
+import Phaser from './lib/phaser_export.js'
+import Game from './scenes/Game.js'
 
-import Phaser from './lib/phaser_export.js';
+export default new Phaser.Game({
+    type: Phaser.AUTO,
+    width: 480,
+    height: 640,
+    scene: Game,
+    physics:
+    {
+        default: 'arcade',
+        arcade:
+        {
+            gravity:
+            {
+                y: 200
+            },
+            debug: true
+        }
+    }
+})
 
-console.dir(Phaser);
+console.log('Hello world!')
 
-console.log('Hello world!');
