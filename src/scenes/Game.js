@@ -87,6 +87,11 @@ export default class Game extends Phaser.Scene
         )
         // end
     }
+
+    init()
+    {
+        this.carrotNo = 0
+    }
     
     update()
     {
